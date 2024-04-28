@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WheelsOnTheGo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .navbar { background-color: #333; color: #fff; padding: 15px; }
+        .navbar a { color: #fff; margin: 0 10px; text-decoration: none; }
+        .container { margin: 20px; }
+        .grid { display: flex; flex-wrap: wrap; }
+        .grid-item { flex: 1 0 21%; margin: 1%; border: 1px solid #ccc; padding: 10px; }
+        .grid-item img { width: 100%; }
+        .search { margin: 20px 0; }
+        .search input { padding: 10px; width: 80%; }
+        .search button { padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#cars">Cars</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+    </div>
+    <div class="container">
+        <h1>Welcome to WheelsOnTheGo</h1>
+        <div class="search">
+            <label for="searchInput">Search for cars:</label>
+            <input type="text" id="searchInput" placeholder="Search for cars...">
+            <button onclick="filterCars()">Search</button>
+        </div>
+        <div id="cars" class="grid">
+            <!-- Cars will be dynamically generated here -->
+        </div>
+        <div id="about">
+            <h2>About Us</h2>
+            <p>Our mission and benefits...</p>
+        </div>
+        <div id="contact">
+            <h2>Contact Us</h2>
+            <form>
+                <label for="nameInput">Your name:</label>
+                <input type="text" id="nameInput" placeholder="Your name" required>
+                <label for="emailInput">Your email:</label>
+                <input type="email" id="emailInput" placeholder="Your email" required>
+                <label for="messageInput">Your message:</label>
+                <textarea id="messageInput" placeholder="Your message" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        var cars = [
+            { name: 'Car 1', description: 'Description 1', price: 100 },
+            { name: 'Car 2', description: 'Description 2', price: 200 },
+            // Add more cars as needed
+        ];
+
+        function displayCars() {
+            var carsDiv = document.getElementById('cars');
+            carsDiv.innerHTML = '';
+            for (var i = 0; i < cars.length; i++) {
+                var car = cars[i];
+                var carDiv = document.createElement('div');
+                carDiv.className = 'grid-item';
+                carDiv.innerHTML = '<h3>' + car.name + '</h3><p>' + car.description + '</p><p>Price: ' + car.price + '</p>';
+                carsDiv.appendChild(carDiv);
+            }
+        }
+
+        function filterCars() {
+            var searchInput = document.getElementById('searchInput').value.toLowerCase();
+            var filteredCars = cars.filter(function(car) {
+                return car.name.toLowerCase().includes(searchInput) || car.description.toLowerCase().includes(searchInput);
+            });
+            cars = filteredCars;
+            displayCars();
+        }
+
+        displayCars();
+    </script>
+</body>
+</html>
